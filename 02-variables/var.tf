@@ -67,7 +67,10 @@ output "sample7" {
 }
 
 ## Pick a variable from Shell ENV VARIABLE
+#  export TF_VAR_sample8=123345 run first on server
 variable "sample8" {}
 output "sample8" {
   value = var.sample8
 }
+
+variable "sample9" {}

@@ -10,3 +10,41 @@ output "sample" {         # Access the Variable
 output "sample1" {
   value = "Hey, ${var.sample}"  #  attaching a string "hey" so use ${var.sample}
 }
+
+# String data type
+variable "sample1" {
+  default = "Hello World"
+}
+
+# Number data type
+variable "sample2" {
+  default = "100"
+}
+
+# Boolean data type
+variable "sample3" {
+  default = "true"
+}
+
+#List Variable
+variable "sample4" {
+  default = [
+     "HELLO" ,
+     100 ,
+     true
+  ]
+}
+
+#MAP Variable
+variable "sample5" {
+  default = {
+    string  = "HELLO"
+    number  = 100
+    boolean = true
+  }
+}
+
+## Access a list Value
+output "sample4" {
+  value = var.sample4
+}

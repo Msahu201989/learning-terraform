@@ -65,3 +65,9 @@ variable "sample7" {}
 output "sample7" {
   value = var.sample7
 }
+
+## Pick a variable from Shell ENV VARIABLE
+variable "sample8" {}
+output "sample8" {
+  value = var.sample8
+}

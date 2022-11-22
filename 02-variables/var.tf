@@ -46,5 +46,5 @@ variable "sample5" {
 
 ## Access a list Value
 output "sample4" {
-  value = var.sample4
+  value = var.sample4[0] # [0] will give only output 1st string i.e hello
 }

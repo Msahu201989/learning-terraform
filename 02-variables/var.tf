@@ -48,3 +48,8 @@ variable "sample5" {
 output "sample4" {
   value = var.sample4[0] # [0] will give only output 1st string i.e hello
 }
+
+## Access a Map Value
+output "sample5" {
+  value = var.sample5["number"]
+}

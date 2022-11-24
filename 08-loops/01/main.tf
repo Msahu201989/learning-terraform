@@ -5,5 +5,8 @@ resource "aws_instance" "sample" {
   tags = {
     Name = "test-${count.index}"
   }
+}
 
+output "public_ip" {
+  value = aws_instance.sample.*.public_ip
 }

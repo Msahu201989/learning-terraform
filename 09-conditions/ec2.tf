@@ -63,3 +63,9 @@ resource "aws_security_group" "allow_ssh" {
 variable "create_sg" {
   default = true
 }
+
+resource "null_resource" "test" {
+  provisioner "local" {
+    command = "echo hello world"
+  }
+}

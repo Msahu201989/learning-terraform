@@ -7,11 +7,6 @@ resource "aws_instance" "sample" {
   }
 }
 
-resource "aws_security_group" "allow_ssh" {
-  count       = var.create_sg ? 1 : 0
-  name        = "allow_ssh"
-  description = "Allow TLS inbound traffic"
-  vpc_id      = "vpc-0aa9e93d9aea8a408"
 
 
 variable "instances" {

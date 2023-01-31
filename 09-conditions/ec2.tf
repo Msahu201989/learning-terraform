@@ -25,7 +25,7 @@ resource "aws_instance" "sample" {
 
 
 
-resource "aws_security_group" "allow_ssh" {
+resource "aws_security_group" "allow_sh" {
   count       = var.create_sg ? 1 : 0
   name        = "allow_ssh"
   description = "Allow TLS inbound traffic"

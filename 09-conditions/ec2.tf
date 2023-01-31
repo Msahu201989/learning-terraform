@@ -27,7 +27,7 @@ resource "aws_instance" "sample" {
 
 resource "aws_security_group" "allow_sh" {
   count       = var.create_sg ? 1 : 0
-  name        = "allow_ssh"
+  name        = "allow_sh"
   description = "Allow TLS inbound traffic"
   vpc_id      = "vpc-0aa9e93d9aea8a408"
 
@@ -56,7 +56,7 @@ resource "aws_security_group" "allow_sh" {
   }
 
   tags = {
-    Name = "allow_ssh"
+    Name = "allow_sh"
   }
 }
 

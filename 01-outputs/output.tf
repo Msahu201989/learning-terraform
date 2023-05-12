@@ -5,3 +5,7 @@ output "sample" {
 output "sample1" {
   value = "Hello World"
 }
+
+output "sample2" {
+   value = "hello world"
+}

@@ -20,6 +20,6 @@ resource "aws_security_group" "allow_ssh_delete" {
   }
 
   tags = {
-    Name = "allow_ssh"
+    Name = "allow_ssh_delete"
   }
 }

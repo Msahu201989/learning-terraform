@@ -1,4 +1,4 @@
-resource "aws_security_group" "allow_ssh" {
+resource "aws_security_group" "allow_ssh_delete" {
   name        = "allow_ssh"
   description = "Allow TLS inbound traffic"
   vpc_id      = "vpc-0aa9e93d9aea8a408"

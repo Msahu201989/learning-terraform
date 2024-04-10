@@ -31,4 +31,3 @@ resource "aws_lb" "main" {
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
   }
-}

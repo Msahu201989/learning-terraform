@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "example" {
-  name        = "launch-wizard-2"
+  name        = "launch-wizard-5"
   description = "Security group for the load balancer"
   vpc_id      = "vpc-0fc9b678fbbe73d32"
 }

@@ -141,7 +141,7 @@ resource "aws_lb_target_group" "target_group_core" {
     healthy_threshold   = 5
     unhealthy_threshold = 2
     matcher {
-      http_code         = "200"
+      http_code         = "404"
     }
   }
 }

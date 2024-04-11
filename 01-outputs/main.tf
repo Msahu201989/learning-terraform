@@ -20,8 +20,6 @@ resource "aws_subnet" "private_subnet_az1" {
   cidr_block              = "172.18.83.0/27"
   availability_zone       = "us-east-1a"  // Specify the availability zone, not the ID
   map_public_ip_on_launch = false
-  // enable_dns64          = false     // These options are not available for aws_subnet
-  // ipv6_native           = false
 
   tags = {
     "Stack"       = "Shared"
@@ -36,8 +34,6 @@ resource "aws_subnet" "private_subnet_az2" {
   cidr_block              = "172.18.83.32/27"
   availability_zone       = "us-east-1b"  // Specify the availability zone, not the ID
   map_public_ip_on_launch = false
-  // enable_dns64          = false     // These options are not available for aws_subnet
-  // ipv6_native           = false
 
   tags = {
     "Stack"       = "Shared"
@@ -149,9 +145,6 @@ resource "aws_lb_listener" "app_listener_80" {
       protocol    = "HTTPS"
       port        = "443"
       status_code = "HTTP_301"
-      // host        = "#{host}"   // These variables seem unnecessary and can be removed
-      // path        = "/#{path}"
-      // query       = "#{query}"
     }
   }
 }
@@ -173,12 +166,12 @@ resource "aws_lb_listener" "app_listener_443" {
   protocol          = "HTTPS"
 
   default_action {
-    type = "fixed-response"
-    fixed_response_action {
+    type             = "fixed-response"
+
+    fixed_response {
       content_type = "text/html"
       message_body = "<h1>Error 503</h1> <p>This path is not configured in the listener rules</p> <p> - Shared Dev ALB</p>"
       status_code  = "503"
     }
   }
 }
-

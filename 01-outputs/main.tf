@@ -180,4 +180,4 @@ resource "aws_lb_listener" "app_listener_443" {
 #      status_code  = "503"
 #    }
   }
-}
+

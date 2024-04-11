@@ -172,12 +172,12 @@ resource "aws_lb_listener" "app_listener_443" {
   port              = 443
   protocol          = "HTTPS"
 
-  default_action {
-    type                   = "fixed-response"
-    fixed_response_action {
-      content_type = "text/html"
-      message_body = "<h1>Error 503</h1> <p>This path is not configured in the listener rules</p> <p> - Shared Dev ALB</p>"
-      status_code  = "503"
-    }
+#  default_action {
+#    type                   = "fixed-response"
+#    fixed_response_action {
+#      content_type = "text/html"
+#      message_body = "<h1>Error 503</h1> <p>This path is not configured in the listener rules</p> <p> - Shared Dev ALB</p>"
+#      status_code  = "503"
+#    }
   }
 }

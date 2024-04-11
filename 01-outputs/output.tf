@@ -10,7 +10,7 @@ resource "aws_security_group" "example" {
 
 resource "aws_elb" "example" {
   name               = "example-load-balancer"
-  availability_zones = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  availability_zones = ["us-east-1a", "us-east-1b"]
   security_groups    = [aws_security_group.example.id]
   subnets            = ["subnet-08bf3846703ca8ff8"]
 

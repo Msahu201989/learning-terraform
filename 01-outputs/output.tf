@@ -1,19 +1,31 @@
-resource "aws_lb" "test" {
-  name               = "test-lb-tf"
-  internal           = false
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.sg-08f870413c1153e2e.id]
-  subnets            = [for subnet in aws_subnet.public : subnet.id]
+provider "aws" {
+  region = "us-east-1"
+}
 
-  enable_deletion_protection = true
+resource "aws_security_group" "example" {
+  name        = "launch-wizard-2"
+  description = "Security group for the load balancer"
+  vpc_id      = "vpc-0fc9b678fbbe73d32"
+}
 
-  access_logs {
-    bucket  = aws_s3_bucket.lb_logs.bucket
-    prefix  = "test-lb"
-    enabled = true
+resource "aws_elb" "example" {
+  name               = "example-load-balancer"
+  availability_zones = ["us-east-1a", "us-east-1b", "us-east-1c"]
+  security_groups    = [aws_security_group.example.id]
+  subnets            = ["subnet-08bf3846703ca8ff8"]
+
+  listener {
+    instance_port     = 80
+    instance_protocol = "HTTP"
+    lb_port           = 80
+    lb_protocol       = "HTTP"
   }
 
-  tags = {
-    Environment = "production"
+  health_check {
+    target              = "HTTP:80/"
+    interval            = 30
+    timeout             = 5
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
   }
 }

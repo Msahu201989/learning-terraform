@@ -1,8 +1,8 @@
 resource "aws_vpc" "example" {
-  cidr_block = "172.18.83.0/26"
-  enable_dns_support = true
-  enable_dns_hostnames = true
-  instance_tenancy = "default"
+  cidr_block            = "172.18.83.0/26"
+  enable_dns_support    = true
+  enable_dns_hostnames  = true
+  instance_tenancy      = "default"
 
   tags = {
     "Application" = "Control-M|Alfresco"
@@ -19,10 +19,10 @@ resource "aws_subnet" "subnet_az1" {
   map_public_ip_on_launch = false
 
   tags = {
-    "Stack"     = "Shared"
-    "Module"    = "VPC"
-    "Name"      = "vpc_shared_dev_pvt_az1"
-    "Application" = "Control-M|Alfresco"
+    "Stack"        = "Shared"
+    "Module"       = "VPC"
+    "Name"         = "vpc_shared_dev_pvt_az1"
+    "Application"  = "Control-M|Alfresco"
   }
 }
 
@@ -33,10 +33,10 @@ resource "aws_subnet" "subnet_az2" {
   map_public_ip_on_launch = false
 
   tags = {
-    "Stack"     = "Shared"
-    "Module"    = "VPC"
-    "Name"      = "vpc_shared_dev_pvt_az2"
-    "Application" = "Control-M|Alfresco"
+    "Stack"        = "Shared"
+    "Module"       = "VPC"
+    "Name"         = "vpc_shared_dev_pvt_az2"
+    "Application"  = "Control-M|Alfresco"
   }
 }
 
@@ -120,9 +120,6 @@ resource "aws_lb_target_group" "target_group_router" {
     timeout             = 5
     healthy_threshold   = 5
     unhealthy_threshold = 2
-    matcher {
-      http_code         = "404"
-    }
   }
 }
 
@@ -140,9 +137,6 @@ resource "aws_lb_target_group" "target_group_core" {
     timeout             = 5
     healthy_threshold   = 5
     unhealthy_threshold = 2
-    matcher {
-      http_code         = "404"
-    }
   }
 }
 

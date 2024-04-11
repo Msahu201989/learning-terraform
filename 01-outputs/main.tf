@@ -1,10 +1,8 @@
-module "alb" {
-  source           = "https://github.com/Msahu201989/tf-module-alb.git"
-  env              = Dev
-private_subnets  = subnet-03458dba469a5d163
-public_subnets   = subnet-03458dba469a5d163
-name             = Test
-vpc_id           = aws_ec2_vpc
-vpc_cidr         = 172.18.83.0/27
+provider "aws" {
+  region = "us-west-2"
+}
 
+resource "aws_instance" "example" {
+  ami           = "ami-0c55b159cbfafe1f0"
+  instance_type = "t2.micro"
 }

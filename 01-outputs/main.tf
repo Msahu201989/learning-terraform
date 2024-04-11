@@ -2,7 +2,7 @@ provider "aws" {
   region = "us-east-1"
 }
 
-resource "aws_ec2_vpc" "shared_dev_vpc" {
+resource "aws_vpc" "shared_dev_vpc" {
   cidr_block       = "172.18.83.0/26"
   enable_dns_support = true
   enable_dns_hostnames = true
@@ -15,13 +15,13 @@ resource "aws_ec2_vpc" "shared_dev_vpc" {
   }
 }
 
-resource "aws_ec2_subnet" "private_subnet_az1" {
-  vpc_id                  = aws_ec2_vpc.shared_dev_vpc.id
+resource "aws_subnet" "private_subnet_az1" {
+  vpc_id                  = aws_vpc.shared_dev_vpc.id
   cidr_block              = "172.18.83.0/27"
-  availability_zone_id    = "use1-az1"
+  availability_zone       = "us-east-1a"  // Specify the availability zone, not the ID
   map_public_ip_on_launch = false
-  enable_dns64            = false
-  ipv6_native             = false
+  // enable_dns64          = false     // These options are not available for aws_subnet
+  // ipv6_native           = false
 
   tags = {
     "Stack"       = "Shared"
@@ -31,13 +31,13 @@ resource "aws_ec2_subnet" "private_subnet_az1" {
   }
 }
 
-resource "aws_ec2_subnet" "private_subnet_az2" {
-  vpc_id                  = aws_ec2_vpc.shared_dev_vpc.id
+resource "aws_subnet" "private_subnet_az2" {
+  vpc_id                  = aws_vpc.shared_dev_vpc.id
   cidr_block              = "172.18.83.32/27"
-  availability_zone_id    = "use1-az2"
+  availability_zone       = "us-east-1b"  // Specify the availability zone, not the ID
   map_public_ip_on_launch = false
-  enable_dns64            = false
-  ipv6_native             = false
+  // enable_dns64          = false     // These options are not available for aws_subnet
+  // ipv6_native           = false
 
   tags = {
     "Stack"       = "Shared"
@@ -50,7 +50,7 @@ resource "aws_ec2_subnet" "private_subnet_az2" {
 resource "aws_security_group" "alb_sg" {
   name        = "alb_sg"
   description = "Security group for ALB"
-  vpc_id      = aws_ec2_vpc.shared_dev_vpc.id
+  vpc_id      = aws_vpc.shared_dev_vpc.id
 
   ingress {
     from_port   = 0
@@ -73,8 +73,8 @@ resource "aws_lb" "alb_shared_dev" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
   subnets            = [
-    aws_ec2_subnet.private_subnet_az1.id,
-    aws_ec2_subnet.private_subnet_az2.id,
+    aws_subnet.private_subnet_az1.id,
+    aws_subnet.private_subnet_az2.id,
   ]
 
   enable_deletion_protection = false
@@ -91,7 +91,7 @@ resource "aws_lb_target_group" "alfresco_transform_router_tg" {
   port               = 8095
   protocol           = "HTTP"
   target_type        = "ip"
-  vpc_id             = aws_ec2_vpc.shared_dev_vpc.id
+  vpc_id             = aws_vpc.shared_dev_vpc.id
   health_check {
     interval            = 30
     port                = "traffic-port"
@@ -111,7 +111,7 @@ resource "aws_lb_target_group" "alfresco_transform_core_tg" {
   port               = 8090
   protocol           = "HTTP"
   target_type        = "ip"
-  vpc_id             = aws_ec2_vpc.shared_dev_vpc.id
+  vpc_id             = aws_vpc.shared_dev_vpc.id
   health_check {
     interval            = 30
     port                = "traffic-port"
@@ -149,21 +149,10 @@ resource "aws_lb_listener" "app_listener_80" {
       protocol    = "HTTPS"
       port        = "443"
       status_code = "HTTP_301"
-      host        = "#{host}"
-      path        = "/#{path}"
-      query       = "#{query}"
+      // host        = "#{host}"   // These variables seem unnecessary and can be removed
+      // path        = "/#{path}"
+      // query       = "#{query}"
     }
-  }
-}
-
-resource "aws_lb_listener" "app_listener_8180" {
-  load_balancer_arn = aws_lb.alb_shared_dev.arn
-  port              = 8180
-  protocol          = "HTTP"
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.alfresco_sfs_dev_tg.arn
   }
 }
 
@@ -175,17 +164,6 @@ resource "aws_lb_listener" "app_listener_8099" {
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.alfresco_transform_core_tg.arn
-  }
-}
-
-resource "aws_lb_listener" "app_listener_8083" {
-  load_balancer_arn = aws_lb.alb_shared_dev.arn
-  port              = 8083
-  protocol          = "HTTP"
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.ecs_alfresco_ass_tg.arn
   }
 }
 

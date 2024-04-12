@@ -117,4 +117,35 @@ resource "aws_lb_listener" "ElasticLoadBalancingV2Listener00listenerappalbshared
 }
 
 resource "aws_lb_listener" "ElasticLoadBalancingV2Listener00listenerappalbshareduat528ffdfd203a1b384afabd6cb81076c4001YrRC" {
-  load_balancer_arn = aws_lb.ElasticLoadBalancingV2LoadBalancer00loadbalancerappalbshareduat528ffdfd203a1b3800
+  load_balancer_arn = aws_lb.ElasticLoadBalancingV2LoadBalancer00loadbalancerappalbshareduat528ffdfd203a1b3800yGoIk.arn
+  port              = 80
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "redirect"
+    redirect {
+      protocol       = "HTTPS"
+      port           = "443"
+      status_code    = "HTTP_301"
+    }
+  }
+}
+
+resource "aws_lb_target_group" "ElasticLoadBalancingV2TargetGroup00targetgroupalfrescosfsuat268aba376ddd572800XrIqf" {
+  name        = "alfresco-sfs-uat"
+  port        = 8099
+  protocol    = "HTTP"
+  vpc_id      = aws_vpc.EC2VPC00vpc0828f2c8c45dd2c6600dObwd.id
+
+  health_check {
+    enabled             = true
+    interval            = 30
+    path                = "/alfresco/s"
+    port                = "8099"
+    protocol            = "HTTP"
+    timeout             = 5
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    matcher             = "200-299"
+  }
+}

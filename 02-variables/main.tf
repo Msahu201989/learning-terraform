@@ -19,13 +19,7 @@ resource "aws_subnet" "EC2Subnet00subnet044ad37e37ab9f32a00U0hiY" {
   vpc_id                  = aws_vpc.EC2VPC00vpc0828f2c8c45dd2c6600dObwd.id
   cidr_block              = "172.18.83.64/27"
   map_public_ip_on_launch = false
-  enable_dns64            = false
   availability_zone_id    = "use1-az1"
-  private_dns_name_options {
-    enable_resource_name_dns_a_record = false
-    hostname_type                     = "ip-name"
-    enable_resource_name_dns_aaaa_record = false
-  }
   tags = {
     "Name"        = "vpc_shared_uat_pvt_az1"
     "Module"      = "VPC"
@@ -38,13 +32,7 @@ resource "aws_subnet" "EC2Subnet00subnet0572f5bd8c256064e00kHd0p" {
   vpc_id                  = aws_vpc.EC2VPC00vpc0828f2c8c45dd2c6600dObwd.id
   cidr_block              = "172.18.83.96/27"
   map_public_ip_on_launch = false
-  enable_dns64            = false
   availability_zone_id    = "use1-az2"
-  private_dns_name_options {
-    enable_resource_name_dns_a_record = false
-    hostname_type                     = "ip-name"
-    enable_resource_name_dns_aaaa_record = false
-  }
   tags = {
     "Name"        = "vpc_shared_uat_pvt_az2"
     "Module"      = "VPC"

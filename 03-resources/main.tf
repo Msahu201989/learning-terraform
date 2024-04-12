@@ -182,7 +182,7 @@ resource "aws_lb" "dev_loadbalancer" {
 }
 
 resource "aws_lb_target_group" "uat_targetgroup_core" {
-  name       = "alfresco_transform_core_tg"
+  name       = "alfresco-transform-core-tg" // Modified name to comply with naming conventions
   port       = 8099
   protocol   = "HTTP"
   target_type = "ip"

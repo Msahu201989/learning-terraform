@@ -102,7 +102,7 @@ resource "aws_lb_listener" "uat_listener_8099" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.dev_targetgroup.arn
+    target_group_arn = aws_lb_target_group.uat_targetgroup_core.arn
   }
 }
 
@@ -178,6 +178,24 @@ resource "aws_lb" "dev_loadbalancer" {
     "Module"      = "Load Balancer"
     "Application" = "Alfresco"
     "Stack"       = "DEV"
+  }
+}
+
+resource "aws_lb_target_group" "uat_targetgroup_core" {
+  name       = "alfresco_transform_core_tg"
+  port       = 8099
+  protocol   = "HTTP"
+  target_type = "ip"
+  vpc_id     = aws_vpc.shared_uat_vpc.id
+  health_check {
+    interval            = 30
+    port                = "traffic-port"
+    protocol            = "HTTP"
+    timeout             = 5
+    healthy_threshold   = 5
+    unhealthy_threshold = 2
+    matcher             = "200"
+    path                = "/"
   }
 }
 

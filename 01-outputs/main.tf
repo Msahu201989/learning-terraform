@@ -1,4 +1,4 @@
-## This Terraform code creates Application Load Balancer in us-east-1a region Code is written by Mukesh sahu ##
+## This Terraform code creates Application Load Balancer in us-east-1a region Code is written by Mukesh ##
 
 
 provider "aws" {
@@ -163,7 +163,7 @@ resource "aws_lb_listener" "app_listener_8099" {
   }
 }
 
-resource "aws_lb_listener" "app_listener_443" {
+resource "aws_lb_listener" "app_listener_443" { ## HTTPS Might not work if Certificate are not available in AWS ##
   load_balancer_arn = aws_lb.alb_shared_dev.arn
   port              = 443
   protocol          = "HTTPS"

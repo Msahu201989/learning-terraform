@@ -1,6 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
 
 resource "aws_vpc" "shared_uat_vpc" {
   cidr_block           = "172.18.83.64/26"
